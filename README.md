@@ -4,7 +4,7 @@
 # What is this?
 - I was tired of the voxel mod shuffle so I basically took the original mod, some tweaks from some other mods, and made my own. Voxel in the overworld isn't my priority. It's just there. I personally do not play with it on. The main focus was battles.
 
-# Mockup picture (I didn't want to export a screenshot of my handheld, sorry).
+# Mockup picture (I'm lazy and didn't upload a screenshot).
 
 <img width="720" height="480" alt="runinfo_preview_720x480" src="https://github.com/user-attachments/assets/4fac024e-e337-431b-90ee-371d4b8e739f" />
 
