@@ -420,9 +420,12 @@ applyFull = function(level)
   -- battle rows stay on the menu under FULL (see the rows hook), so this is
   -- where the preset puts them and not where they are held.
   OverworldBattle.setting:setIndex(1, Game)
-  -- default to the classic player back view. The foe remains world-placed;
-  -- AUTO decides whether the selected back belongs in-world or on OG UI.
-  BattleArt.viewSetting:setIndex(2, Game)
+  -- keep the player on FRONT SPRITES. This mod's own front collection is what
+  -- FULL exists to show, and it is the only side with a complete set: the
+  -- back-generation folders were cut down to gen1. Forcing it here (rather
+  -- than merely defaulting to it) means arriving at FULL always lands on the
+  -- bundled art, even for a save that had previously selected BACK.
+  BattleArt.viewSetting:setIndex(1, Game)
   -- and the battle screen the staged fight is composed for. WIDE re-lays that
   -- screen out on a 304x144 surface, which moves every anchor the arena camera
   -- is solved against (OverworldBattle.forceOG); FULL has just switched staged
@@ -512,26 +515,12 @@ local SETTINGS = {
     .. "back to the ROM. STATIC is the only mode that reads oversized "
     .. "masters, so it is what custom 192px art needs.",
     when = function() return stagedBattles() end, full = true },
-  { BattleArt.trainerSetting,
-    "Choose the static opponent trainer collection. A class missing from "
-    .. "the selected generation falls back directly to its ROM portrait.",
-    when = function()
-      return stagedBattles() and BattleArt.setting:get() ~= "rom"
-    end, full = true },
   { BattleArt.playerArtSetting,
     "Choose the player trainer's static battle-intro portrait. A missing "
     .. "named choice tries player.png, then ROM. PNG uses player.png "
     .. "directly. BATTLE ART: ROM pins this row to ROM.",
     when = function()
       return stagedBattles()
-    end, full = true },
-  { BattleArt.backAnimationSetting,
-    "Choose which back-static generation folder supplies the player's own "
-    .. "Pokemon pictures. This is the row an oversized custom back master "
-    .. "has to agree with: a 192px back in back-static/gen5 needs GEN 5 "
-    .. "selected here. Missing art falls back to the ROM.",
-    when = function()
-      return stagedBattles() and BattleArt.setting:get() ~= "rom"
     end, full = true },
   { BattleArt.duplicateSetting,
     "Choose who owns Pokemon pictures when another sprite mod is installed. "
@@ -555,6 +544,16 @@ local SETTINGS = {
     "Place player back art automatically, force it into the 3D world, or "
     .. "use gen1recomp's OG UI anchor. AUTO keeps STATIC fallbacks in the "
     .. "world and ANIMATED/ROM fallbacks on the UI.",
+    when = function() return stagedBattles() end, full = true },
+  { BattleArt.outlineSetting,
+    "Ring this mod's own STATIC/ANIMATED battle art in white, Emerald "
+    .. "Seaglass style, and fix the sealed-off enclosed gaps (white pockets "
+    .. "between a Pokemon's front legs, under its tail, between a body and "
+    .. "a limb) a border-only alpha key misses. ROM-decoded fronts and "
+    .. "backs get the same enclosed-gap fix and outline separately, always "
+    .. "on, via this mod's assets_transforms recipe -- the sandboxed hook "
+    .. "that runs has no way to read this row live, only to re-run when "
+    .. "its own recipe file changes.",
     when = function() return stagedBattles() end, full = true },
   { DayNight.setting,
     "What time it is outdoors: pin the sky to DAY, NIGHT, DUSK or DAWN, "
