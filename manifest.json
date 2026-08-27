@@ -1,6 +1,6 @@
 {
-  "id": "SOLO_BATTLE_VOXEL",
-  "name": "Solo Battle Voxel",
+  "id": "SOLO_BATTLE_MOBILE",
+  "name": "Solo Battle Mobile",
   "version": "2.5.2",
   "api": 2,
   "entry": "main.lua",
